@@ -1,7 +1,7 @@
-package Employee.application;
+package employee.application;
 
-import Employee.domain.Employee;
-import Employee.domain.ServiceEmployee;
+import employee.domain.Employee;
+import employee.domain.ServiceEmployee;
 
 
 public class CreateEmployee {

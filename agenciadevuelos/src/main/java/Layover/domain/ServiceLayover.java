@@ -1,4 +1,4 @@
-package Layover.domain;
+package layover.domain;
 
 public interface ServiceLayover {
 

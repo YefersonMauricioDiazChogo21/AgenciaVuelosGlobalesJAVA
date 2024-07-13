@@ -1,4 +1,4 @@
-package Employee.domain;
+package employee.domain;
 
 public interface ServiceEmployee {
     

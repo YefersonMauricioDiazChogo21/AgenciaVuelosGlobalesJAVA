@@ -1,4 +1,4 @@
-package Layover.domain;
+package layover.domain;
 
 public class Layover {
 private int id;

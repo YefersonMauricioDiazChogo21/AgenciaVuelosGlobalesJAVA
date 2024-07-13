@@ -1,4 +1,4 @@
-package Employee.infrastructure.out;
+package employee.infrastructure.out;
 
 import customer.domain.Customer;
 import customer.domain.ServiceCustomer;
