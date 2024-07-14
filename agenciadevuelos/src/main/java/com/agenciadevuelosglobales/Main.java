@@ -1,29 +1,32 @@
 package com.agenciadevuelosglobales;
 
+import com.agenciadevuelosglobales.Menu.MenuManager;
 
-
-import java.util.ArrayList;
-
-import auth.application.CreateUser;
-import auth.domain.ServiceAuthUser;
-import auth.infrastructure.in.UserController;
-import auth.infrastructure.out.AuthUserRepository;
 import rol.application.GetAllRol;
-import rol.domain.Rol;
 import rol.domain.ServiceRol;
 import rol.infrastructure.out.RolRepository;
+import user.application.createUser.CreateUser;
+import user.application.findUser.FindUser;
+import user.application.updateUser.UpdateUser;
+import user.application.validation.ValidationUser;
+import user.domain.ServiceUser;
+import user.infrastructure.in.UserController;
+import user.infrastructure.out.UserRepository;
 
 public class Main {
     public static void main(String[] args) {
-        ServiceAuthUser serviceAuthUser = new AuthUserRepository();
+        ServiceUser serviceUser = new UserRepository();
         ServiceRol serviceRol = new RolRepository();
         GetAllRol getAllRol = new GetAllRol(serviceRol);
-       CreateUser createUser = new CreateUser(serviceAuthUser); 
-       UserController userController = new UserController(createUser, getAllRol);
-       
+       CreateUser createUser = new CreateUser(serviceUser); 
+       UpdateUser updateUser = new UpdateUser(serviceUser);
+       ValidationUser validationUser = new ValidationUser(serviceUser);
+       FindUser findUser = new FindUser(serviceUser);
+       UserController userController = new UserController(createUser, getAllRol,findUser, updateUser);
+       MenuManager menuManager = new MenuManager(userController);
         
-
-       userController.createUser();
+        menuManager.startMainMenu();
+    //    userController.createUser();
 
        
     }

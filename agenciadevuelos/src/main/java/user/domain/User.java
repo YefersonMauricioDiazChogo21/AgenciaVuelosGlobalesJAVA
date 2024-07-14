@@ -1,17 +1,17 @@
-package auth.domain;
+package user.domain;
 
-public class AuthUser {
+public class User {
 private int id;
 private String usuario;
 private String contraseña;
 private int rolId;
 
 
-public AuthUser() {
+public User() {
 
 
 }
-public AuthUser(int id, String usuario, String contraseña, int rolId) {
+public User(int id, String usuario, String contraseña, int rolId) {
     this.id = id;
     this.usuario = usuario;
     this.contraseña = contraseña;
@@ -44,6 +44,10 @@ public void setRolId(int rolId) {
 @Override
 public String toString() {
     return "AuthUser [id=" + id + ", usuario=" + usuario + ", contraseña=" + contraseña + ", rolId=" + rolId + "]";
+}
+public User execute(int id2, String usuario2, String newContraseña, int rolId2) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'execute'");
 }
 
 
