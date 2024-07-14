@@ -8,7 +8,7 @@ public class Status {
         this.id = id;
         this.name = name;
     }
-
+    
     public Status() {
     }
 

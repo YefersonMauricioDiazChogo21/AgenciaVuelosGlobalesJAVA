@@ -14,4 +14,6 @@ public class GetAllStatus {
     public ArrayList <Status> execute(){
         return serviceStatus.getAllStatus();
     } 
+
 }
+

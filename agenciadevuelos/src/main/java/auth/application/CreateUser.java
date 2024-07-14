@@ -1,5 +1,4 @@
 package auth.application;
-
 import auth.domain.AuthUser;
 import auth.domain.ServiceAuthUser;
 
@@ -13,6 +12,5 @@ public CreateUser(ServiceAuthUser serviceAuthUser) {
  public void execute(AuthUser authUser) {
         serviceAuthUser.CreateUser(authUser);
     }
-
 
 }

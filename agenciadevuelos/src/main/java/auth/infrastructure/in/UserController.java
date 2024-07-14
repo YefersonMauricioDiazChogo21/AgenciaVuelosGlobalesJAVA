@@ -1,15 +1,20 @@
 package auth.infrastructure.in;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import auth.application.CreateUser;
 import auth.domain.AuthUser;
 import auth.infrastructure.out.AuthUserRepository;
+import rol.application.GetAllRol;
+import rol.domain.Rol;
 
 public class UserController {
     private final CreateUser createUser;
+    private final GetAllRol getAllRol;
 
-    public UserController(CreateUser createUser) {
+    public UserController(CreateUser createUser,GetAllRol getAllRol) {
         this.createUser = createUser;
+        this.getAllRol = getAllRol;
     }
 
     public void createUser() {
@@ -26,7 +31,11 @@ public class UserController {
             System.out.println("Ingresa la contraseña: ");
             String contraseña = scanner.nextLine();
 
-            System.out.println("Ingresa el rol: ");
+            ArrayList <Rol> listRol = getAllRol.execute();
+            System.out.println("*-*- LISTA DE ROLES -*-*\n");
+            listRol.forEach(e -> System.out.println("\n"+ e.getId() + ". "+ e.getNombre()));
+
+            System.out.println("\nIngresa el rol: ");
             int rol = scanner.nextInt();
 
           
