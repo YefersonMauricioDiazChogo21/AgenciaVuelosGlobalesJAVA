@@ -1,6 +1,9 @@
 package plane.infrastructure.in;
 
 import plane.application.CreatePlane;
+import plane.application.DeletePlaneByPlate;
+import plane.application.GetAllPlanes;
+import plane.application.UpdatePlaneByPlate;
 import plane.domain.ServicePlane;
 import plane.infrastructure.out.PlaneRepository;
 import planeModel.application.GetAllModels;
@@ -21,10 +24,15 @@ public class PlaneMenu {
 
         ServicePlane servicePlane = new PlaneRepository();
         CreatePlane createPlane = new CreatePlane(servicePlane);
+        GetAllPlanes getAllPlanes = new GetAllPlanes(servicePlane);
+        DeletePlaneByPlate deletePlaneByPlate = new DeletePlaneByPlate(servicePlane);
+        UpdatePlaneByPlate updatePlaneByPlate = new UpdatePlaneByPlate(servicePlane);
 
-        PlaneController planeController = new PlaneController(getAllStatus, getAllModels, createPlane);
 
-        planeController.RegisterPlane();
+        PlaneController planeController = new PlaneController(updatePlaneByPlate, deletePlaneByPlate,getAllPlanes, getAllStatus, createPlane, getAllModels);
+
+        
+        planeController.updatePlaneByPlate();
 
     }
     

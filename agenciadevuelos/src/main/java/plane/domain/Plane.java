@@ -43,8 +43,8 @@ public class Plane {
     public Date getFechaFabricacion() {
         return fechaFabricacion;
     }
-    public void setFechaFabricacion(Date date) {
-        this.fechaFabricacion = date;
+    public void setFechaFabricacion(Date fechaFabricacion2) {
+        this.fechaFabricacion = fechaFabricacion2;
     }
     public int getModeloId() {
         return modeloId;
