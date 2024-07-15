@@ -31,6 +31,8 @@ public class UserRepository implements ServiceUser {
         return false;
     }
     
+    
+
     @Override
     public void CreateUser(User authUser) {
         String sql = "INSERT INTO Usuario (id, usuario, contraseña, rolId) VALUES (?,?,?,?)";
@@ -58,8 +60,9 @@ public class UserRepository implements ServiceUser {
     @Override
     public User FindUserById(int id) {
         String sql = "select id,usuario,contraseña,rolId from Usuario where id = ?";
+        User user = null;
         try (Connection connection = DataBaseConfig.getConnection();PreparedStatement statement = connection.prepareStatement(sql)) {
-            User user = null;
+            
             statement.setInt(1, id);
             try(ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()) {
@@ -75,13 +78,13 @@ public class UserRepository implements ServiceUser {
             
             e.printStackTrace();
         }
-        return null;
+        return user;
     }
 
 
     @Override
     public User UpdateUserById(int id,String user,String contraseña,int rolnumber) {
-       String sql = "UPDATE users SET  usuario = ?, contraseña = ?, rolId = ? WHERE id = ?";
+       String sql = "UPDATE Usuario SET  usuario = ?, contraseña = ?, rolId = ? WHERE id = ?";
 
        try (Connection connection = DataBaseConfig.getConnection();PreparedStatement statement = connection.prepareStatement(sql)) {
 

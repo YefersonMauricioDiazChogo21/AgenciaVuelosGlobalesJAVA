@@ -2,7 +2,6 @@ package user.infrastructure.in;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import rol.application.GetAllRol;
 import rol.domain.Rol;
 import user.application.createUser.CreateUser;
@@ -16,6 +15,7 @@ public class UserController {
     private final GetAllRol getAllRol;
     private final FindUser findUser;
     private final UpdateUser updateUser;
+    private final Scanner scanner = new Scanner(System.in);
 
     public UserController(CreateUser createUser, GetAllRol getAllRol, FindUser findUser, UpdateUser updateUser) {
         this.createUser = createUser;
@@ -25,18 +25,14 @@ public class UserController {
     }
 
     public void createUser() {
-        try (Scanner scanner = new Scanner(System.in)) {
+        try {
             User user = new User();
+            int id = utils.Validation.leerNumero("Ingrese la cedula: ", scanner);
 
-            System.out.println("Ingrese la cédula: ");
-            int id = scanner.nextInt();
-            scanner.nextLine(); 
-
-            System.out.println("Ingrese el usuario:");
-            String usuario = scanner.nextLine();
+            String usuario = utils.Validation.leerdato("Ingrese el usuario: ", scanner);
 
             System.out.println("Ingresa la contraseña: ");
-            String contraseña = scanner.nextLine();
+            String contraseña = utils.Validation.leerdato("Ingrese la contraseña: ", scanner);
 
             ArrayList<Rol> listRol = getAllRol.execute();
 
@@ -50,7 +46,7 @@ public class UserController {
             System.out.format("+-----+----------------------+%n");
 
             System.out.println("\nIngresa el rol: ");
-            int rol = scanner.nextInt();
+            int rol = utils.Validation.leerNumero("Dijite el id del rol", scanner);
 
             boolean usuarioExistente = verificarUsuarioExistente(usuario);
 
@@ -81,13 +77,32 @@ public class UserController {
         }
     }
 
+    public void findUserById() {
+        try {
+            int id = utils.Validation.leerNumero("Ingrese el id del usuario a buscar: ", scanner);
+            User user = findUser.execute(id);
+
+            if (user != null) {
+                System.out.println("Usuario encontrado:");
+                System.out.println("Cedula: " + user.getId());
+                System.out.println("Usuario: " + user.getUsuario());
+                System.out.println("Rol: " + user.getRolId());
+            } else {
+                System.out.println("No se encontró ningún usuario con el ID: " + id);
+            }
+        } catch (Exception e) {
+            System.err.println("Error al buscar el usuario: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     public void updateById() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Ingrese la cédula del usuario a actualizar:");
-            int id = scanner.nextInt();
-            scanner.nextLine(); 
+        try {
+            int id = utils.Validation.leerNumero("Ingrese la cedula a actualizar: ", scanner);
+            // scanner.nextInt();
 
             User user = findUser.execute(id);
+            System.out.println(findUser.execute(id));
             if (user != null) {
                 System.out.println("Usuario encontrado:");
                 System.out.println("ID: " + user.getId());
@@ -98,14 +113,12 @@ public class UserController {
                 System.out.println("1. Usuario");
                 System.out.println("2. Contraseña");
                 System.out.println("3. Rol");
-                int choice = scanner.nextInt();
-                scanner.nextLine(); 
+                int choice = utils.Validation.leerNumero("Eliga la opcion: ", scanner);
 
                 User updatedUser = null;
                 switch (choice) {
                     case 1:
-                        System.out.println("Ingresa el nuevo usuario:");
-                        String newUser = scanner.nextLine();
+                        String newUser = utils.Validation.leerdato("Ingrese el nuevo nombre de usuario: ", scanner);
                         updatedUser = updateUser.execute(id, newUser, user.getContraseña(), user.getRolId());
                         if (updatedUser != null) {
                             System.out.println("Usuario actualizado a: " + updatedUser.getUsuario());
@@ -114,8 +127,7 @@ public class UserController {
                         }
                         break;
                     case 2:
-                        System.out.println("Ingresa la nueva contraseña:");
-                        String newContraseña = scanner.nextLine();
+                        String newContraseña = utils.Validation.leerdato("Ingrese la nueva contraseña: ", scanner);
                         updatedUser = updateUser.execute(id, user.getUsuario(), newContraseña, user.getRolId());
                         if (updatedUser != null) {
                             System.out.println("Contraseña actualizada a: " + updatedUser.getContraseña());
@@ -134,8 +146,7 @@ public class UserController {
                         }
                         System.out.format("+-----+----------------------+%n");
 
-                        System.out.println("Ingresa el nuevo rol:");
-                        int newRol = scanner.nextInt();
+                        int newRol = utils.Validation.leerNumero("Ingrese el nuevo rol :", scanner);
                         updatedUser = updateUser.execute(id, user.getUsuario(), user.getContraseña(), newRol);
                         if (updatedUser != null) {
                             System.out.println("Rol actualizado a: " + updatedUser.getRolId());
@@ -157,21 +168,41 @@ public class UserController {
     }
 
     public void ValidationAccount() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Ingresa la cedula: ");
-            int userId = scanner.nextInt();
+        try {
+            while (true) {
+                System.out.println("\nINICIO DE SESION\n");
+                int userId = utils.Validation.leerNumero("Ingresa la cedula: ", scanner);
 
-            System.out.println("Ingresa la contraseña: ");
-            char[] contraseña = System.console().readPassword(); 
-            
-            User user = findUser.execute(userId);
+                String contraseña = utils.Validation.leerdato("Ingrese la contraseña: ", scanner);
 
+                User user = findUser.execute(userId);
 
-            if (user != null && user.getContraseña().equals(new String(contraseña))) {
-                System.out.println("Ingreso exitoso");
-            } else {
-                System.out.println("Usuario o contraseña incorrectos");
+                if (user != null && user.getContraseña().equals(contraseña)) {
+
+                    int rolid = user.getRolId();
+
+                    System.out.println("Ingreso exitoso\n");
+                    switch (rolid) {
+                        case 1:
+                            System.out.println("ADMINISTRADOR");
+                            break;
+                        case 2:
+                            System.out.println("AREA DE VENTAS");
+                            break;
+                        case 3:
+                            System.out.println("TECNICO");
+                        case 4:
+                            System.out.println("CLIENTE");
+                        default:
+                            break;
+                    }
+
+                } else {
+                    System.out.println("Usuario o contraseña incorrectos");
+
+                }
             }
+
         } catch (Exception e) {
             System.err.println("Error al validar el usuario: " + e.getMessage());
         }
