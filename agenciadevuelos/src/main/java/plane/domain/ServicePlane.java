@@ -7,4 +7,5 @@ public interface ServicePlane {
     ArrayList<Plane> getAllPlane();
     void DeletePlaneByPlate(String plate);
     void updatePlaneByPlate(Plane plane);
+    Plane getPlaneByPlate(String plate);
 }

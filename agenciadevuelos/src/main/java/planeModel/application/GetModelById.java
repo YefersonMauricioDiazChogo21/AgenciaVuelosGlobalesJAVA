@@ -10,7 +10,7 @@ public class GetModelById {
         this.serviceModel = serviceModel;
     }
 
-    public Model execute(){
-        return serviceModel.getModelById(null);
+    public Model execute(int id){
+        return serviceModel.getModelById(id);
     }
 }

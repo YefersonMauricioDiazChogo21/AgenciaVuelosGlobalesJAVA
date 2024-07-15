@@ -1,4 +1,4 @@
-package Crewmember.domain;
+package crewmember.domain;
 
 public class Crewmember {
 private int escalaId;

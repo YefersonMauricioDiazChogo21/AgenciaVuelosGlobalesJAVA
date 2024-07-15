@@ -1,6 +1,6 @@
-package Crewmember.infrastructure.in;
+package crewmember.infrastructure.in;
 
-import Crewmember.application.CreateCrewmember;
+import crewmember.application.CreateCrewmember;
 
 public class Controller {
 private CreateCrewmember createCrewmember;

@@ -99,4 +99,25 @@ public class PlaneRepository implements ServicePlane {
         e.printStackTrace();
     }
     }
+
+    @Override
+    public Plane getPlaneByPlate(String plate) {
+        Plane avion = new Plane();
+        String sql = "SELECT id, matricula, capacidad, fechaFabricacion, Modelo_id, Estado_id FROM Avion WHERE matricula = ?";
+        try (Connection connection = DataBaseConfig.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, plate);
+            try (ResultSet rs = statement.executeQuery()) {
+                    avion.setId(rs.getInt("id"));
+                    avion.setMatricula(rs.getString("matricula"));
+                    avion.setCapacidad(rs.getInt("capacidad"));
+                    avion.setFechaFabricacion(rs.getDate("fechaFabricacion"));
+                    avion.setModeloId(rs.getInt("Modelo_id"));
+                    avion.setEstadoId(rs.getInt("Estado_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return avion;
+    }
 }

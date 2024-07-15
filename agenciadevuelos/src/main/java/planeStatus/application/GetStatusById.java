@@ -1,6 +1,7 @@
 package planeStatus.application;
 
 import planeStatus.domain.ServiceStatus;
+import planeStatus.domain.Status;
 
 public class GetStatusById {
     public final ServiceStatus serviceStatus;
@@ -9,7 +10,7 @@ public class GetStatusById {
         this.serviceStatus = serviceStatus;
     }
 
-    public void execute(Integer id){
-        serviceStatus.getStatusById(id);
+    public Status execute(Integer id){
+        return serviceStatus.getStatusById(id);
     } 
 }

@@ -1,7 +1,7 @@
-package Crewmember.application;
+package crewmember.application;
 
-import Crewmember.domain.Crewmember;
-import Crewmember.domain.ServiceCrewmember;
+import crewmember.domain.Crewmember;
+import crewmember.domain.ServiceCrewmember;
 
 public class CreateCrewmember {
 

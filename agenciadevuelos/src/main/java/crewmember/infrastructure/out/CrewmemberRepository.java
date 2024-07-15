@@ -1,7 +1,7 @@
-package Crewmember.infrastructure.out;
+package crewmember.infrastructure.out;
 
-import Crewmember.domain.Crewmember;
-import Crewmember.domain.ServiceCrewmember;
+import crewmember.domain.Crewmember;
+import crewmember.domain.ServiceCrewmember;
 
 public class CrewmemberRepository implements ServiceCrewmember{
 
